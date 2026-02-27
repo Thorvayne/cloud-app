@@ -1,4 +1,4 @@
-# Cloud Task Manager - Książka Azure w Praktyce by Karol Żyłuk
+# Cloud Task Manager - by Karol Żyłuk
  
 Projekt natywnej aplikacji chmurowej realizowany w architekturze 3-warstwowej.
  
@@ -16,3 +16,52 @@ Ten projekt został zaplanowany z myślą o usługach PaaS (Platform as a Servic
 * [ ] **Artefakt 2:** Konfiguracja środowiska Docker (w trakcie...).
  
 > **Informacja:** Ten plik będzie ewoluował. W kolejnych etapach dodamy tutaj sekcje 'Quick Start', opis zmiennych środowiskowych oraz instrukcję wdrożenia (CI/CD).
+
+# Cloud App – Projekt aplikacji chmurowej
+
+Projekt aplikacji chmurowej realizowany w architekturze 3-warstwowej.
+
+## Struktura projektu
+
+cloud-app/
+- frontend/ – aplikacja frontendowa
+- backend/ – API backendowe
+- database/ – konfiguracja bazy danych
+- docker-compose.yml – konfiguracja środowiska Docker
+- README.md – dokumentacja projektu
+
+---
+
+## Uruchomienie projektu
+
+Aby uruchomić projekt lokalnie należy użyć Docker Compose.
+
+### Budowanie i uruchomienie kontenerów
+
+docker compose up -d --build
+
+### Sprawdzenie statusu kontenerów
+
+docker compose ps
+
+---
+
+## Status projektu
+
+- Artefakt 1: Architektura i struktura folderów
+- Artefakt 2: Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose)
+
+Uruchomione kontenery:
+- frontend
+- backend
+- database
+
+---
+
+## Technologie
+
+- Docker
+- Docker Compose
+- Backend
+- Frontend
+- Azure SQL Edge

@@ -51,7 +51,7 @@ docker compose ps
 
 - Artefakt 1: Architektura i struktura folderów
 - Artefakt 2: Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose)
-
+- Artefakt 3: Stworzony widok (Page) wyświetlający listę danych z API, z poprawną komunikacją Axios (GET).
 Uruchomione kontenery:
 - frontend
 - backend

@@ -14,6 +14,7 @@ Ten projekt został zaplanowany z myślą o usługach PaaS (Platform as a Servic
 ## 🏗 Status Projektu i Dokumentacja
 * [x] **Artefakt 1:** Zaplanowano strukturę folderów i diagram C4 (dostępny w `/docs`).
 * [ ] **Artefakt 2:** Konfiguracja środowiska Docker (w trakcie...).
+* [ ] Artefakt 3: Stworzony widok (Page) wyświetlający listę danych z API, z poprawną komunikacją Axios (GET).
  
 > **Informacja:** Ten plik będzie ewoluował. W kolejnych etapach dodamy tutaj sekcje 'Quick Start', opis zmiennych środowiskowych oraz instrukcję wdrożenia (CI/CD).
 

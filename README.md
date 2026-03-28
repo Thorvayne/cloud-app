@@ -8,61 +8,70 @@ Ten projekt został zaplanowany z myślą o usługach PaaS (Platform as a Servic
 | Warstwa | Komponent Lokalny | Usługa Azure |
 | :--- | :--- | :--- |
 | **Presentation** | React 19 (Vite) | Azure Static Web Apps |
-| **Application** | API (.NET 9 / Node 24) | Azure App Service |
-| **Data** | SQL Server (Dev) | Azure SQL Database (Serverless) |
+| **Application** | API (.NET 9) | Azure App Service |
+| **Data** | SQL Server (Docker) | Azure SQL Database (Serverless) |
  
+---
+
 ## 🏗 Status Projektu i Dokumentacja
-* [x] **Artefakt 1:** Zaplanowano strukturę folderów i diagram C4 (dostępny w `/docs`).
-* [ ] **Artefakt 2:** Konfiguracja środowiska Docker (w trakcie...).
-* [ ] Artefakt 3: Stworzony widok (Page) wyświetlający listę danych z API, z poprawną komunikacją Axios (GET).
- 
-> **Informacja:** Ten plik będzie ewoluował. W kolejnych etapach dodamy tutaj sekcje 'Quick Start', opis zmiennych środowiskowych oraz instrukcję wdrożenia (CI/CD).
 
-# Cloud App – Projekt aplikacji chmurowej
+* [x] **Artefakt 1:** Zaplanowano strukturę folderów i architekturę aplikacji
+* [x] **Artefakt 2:** Skonfigurowano środowisko Docker (multi-container)
+* [x] **Artefakt 3:** Frontend (React) pobiera dane z API (Axios GET)
+* [x] **Artefakt 4:** Backend + baza danych + komunikacja frontend-backend
 
-Projekt aplikacji chmurowej realizowany w architekturze 3-warstwowej.
+---
 
-## Struktura projektu
+## 🚀 Artefakt 4 – Backend i integracja
+
+W ramach Artefaktu 4 wykonano:
+
+### ✔ Backend API (ASP.NET Core)
+- Zaimplementowano REST API
+- Utworzono kontroler `TasksController`
+- Dostępne endpointy:
+  - GET /api/Tasks
+  - GET /api/Tasks/{id}
+  - POST /api/Tasks
+  - PUT /api/Tasks/{id}
+  - DELETE /api/Tasks/{id}
+
+### ✔ Swagger
+- Udostępniono dokumentację API pod:
+  http://localhost:8081/swagger
+
+### ✔ Baza danych (Docker)
+- SQL Server działa w kontenerze `cloud-db`
+- Backend łączy się przez connection string:
+  `Server=cloud-db,1433`
+
+### ✔ Entity Framework
+- Konfiguracja `AppDbContext`
+- Automatyczne tworzenie bazy:
+  `Database.EnsureCreated()`
+
+### ✔ Frontend ↔ Backend
+- React komunikuje się z API przez Axios
+- Endpoint:
+  http://localhost:8081/api/Tasks
+- Dane są poprawnie pobierane i wyświetlane
+
+### ✔ Obsługa błędów
+- Dodano obsługę błędów w frontendzie (`catch`)
+- Dodano politykę CORS w backendzie
+
+---
+
+## 📂 Struktura projektu
 
 cloud-app/
-- frontend/ – aplikacja frontendowa
-- backend/ – API backendowe
-- database/ – konfiguracja bazy danych
-- docker-compose.yml – konfiguracja środowiska Docker
+- frontend/ – aplikacja frontendowa (React + Vite)
+- backend/ – API (.NET)
+- docker-compose.yml – konfiguracja Docker
 - README.md – dokumentacja projektu
 
 ---
 
-## Uruchomienie projektu
-
-Aby uruchomić projekt lokalnie należy użyć Docker Compose.
+## ▶ Uruchomienie projektu
 
 ### Budowanie i uruchomienie kontenerów
-
-docker compose up -d --build
-
-### Sprawdzenie statusu kontenerów
-
-docker compose ps
-
----
-
-## Status projektu
-
-- Artefakt 1: Architektura i struktura folderów
-- Artefakt 2: Środowisko wielokontenerowe uruchomione lokalnie (Docker Compose)
-- Artefakt 3: Stworzony widok (Page) wyświetlający listę danych z API, z poprawną komunikacją Axios (GET).
-Uruchomione kontenery:
-- frontend
-- backend
-- database
-
----
-
-## Technologie
-
-- Docker
-- Docker Compose
-- Backend
-- Frontend
-- Azure SQL Edge

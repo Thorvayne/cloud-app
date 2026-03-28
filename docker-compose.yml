@@ -1,5 +1,5 @@
 version: "3.9"
- 
+
 services:
   frontend:
     build: ./frontend
@@ -7,14 +7,18 @@ services:
       - "8080:80"
     networks:
       - cloud-network
- 
+
   backend:
     build: ./backend
+    depends_on:
+      - db
     ports:
-      - "8081:80"
+      - "8081:8081"
+    environment:
+      ASPNETCORE_URLS: http://+:8081
     networks:
       - cloud-network
- 
+
   db:
     image: mcr.microsoft.com/azure-sql-edge
     container_name: cloud-db
@@ -25,7 +29,7 @@ services:
       - "1433:1433"
     networks:
       - cloud-network
- 
+
 networks:
   cloud-network:
     driver: bridge

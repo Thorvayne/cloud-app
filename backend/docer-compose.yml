@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: cloud-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "StrongPassword123!"
+    ports:
+      - "1433:1433"
+
+  backend:
+    build: ./backend
+    container_name: cloudapp-backend-container
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    environment:
+      ASPNETCORE_URLS: http://+:8081

@@ -71,6 +71,20 @@ cloud-app/
 - README.md – dokumentacja projektu
 
 ---
+## Artefakt 5 – Usprawnienia backendu i przygotowanie do chmury
+
+W ramach Artefaktu 5 wykonano następujące zadania:
+
+- wprowadzono DTO (`TaskReadDto`) zamiast zwracania bezpośrednio encji bazy danych,
+- zaktualizowano metody `GetAll` i `GetById` w `TasksController`,
+- dodano trwałość danych przy użyciu Docker Volume (`sql-data`),
+- wdrożono migracje Entity Framework Core (`InitialCreate`),
+- zamieniono `EnsureCreated()` na `Migrate()`,
+- rozbudowano frontend React o formularz dodawania nowych zadań,
+- użytkownik może dodawać zadania bez użycia Swaggera,
+- po dodaniu zadania lista danych jest automatycznie odświeżana.
+
+Artefakt 5 przygotowuje projekt do wdrożenia w środowisku chmurowym Azure.
 
 ## ▶ Uruchomienie projektu
 

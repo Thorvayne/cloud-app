@@ -7,6 +7,8 @@ type Task = {
   isCompleted: boolean;
 };
 
+const API_URL = "https://cloud-app-thorvayne-2026-api-fmbrfbc5g7beejg7.germanywestcentral-01.azurewebsites.net/api"
+
 export default function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskName, setNewTaskName] = useState("");
@@ -15,7 +17,7 @@ export default function Dashboard() {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:8081/api/Tasks");
+      const res = await axios.get(API_URL + "/Tasks");
       setTasks(res.data);
       setError("");
     } catch (err) {
@@ -37,7 +39,7 @@ export default function Dashboard() {
     }
 
     try {
-      await axios.post("http://localhost:8081/api/Tasks", {
+      await axios.post(API_URL + "/Tasks", {
         name: newTaskName,
         isCompleted: false,
       });
@@ -76,7 +78,7 @@ export default function Dashboard() {
         <p>Brak zadań</p>
       ) : (
         <ul>
-          {tasks.map((task) => (
+          {tasks?.map((task) => (
             <li key={task.id}>
               {task.name} {task.isCompleted ? "✅" : "❌"}
             </li>

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CloudBackend.Data;
 using CloudBackend.Models;
+using CloudBackend.DTOs;
 
 namespace CloudBackend.Controllers;
 
@@ -19,15 +22,32 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CloudTask>>> GetTasks()
+    public async Task<ActionResult<IEnumerable<TaskReadDto>>> GetTasks()
     {
-        return Ok(await _context.Tasks.ToListAsync());
+        var tasks = await _context.Tasks
+            .Select(task => new TaskReadDto
+            {
+                Id = task.Id,
+                Name = task.Name,
+                IsCompleted = task.IsCompleted
+            })
+            .ToListAsync();
+
+        return Ok(tasks);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CloudTask>> GetTask(int id)
+    public async Task<ActionResult<TaskReadDto>> GetTask(int id)
     {
-        var task = await _context.Tasks.FindAsync(id);
+        var task = await _context.Tasks
+            .Where(task => task.Id == id)
+            .Select(task => new TaskReadDto
+            {
+                Id = task.Id,
+                Name = task.Name,
+                IsCompleted = task.IsCompleted
+            })
+            .FirstOrDefaultAsync();
 
         if (task == null)
         {
@@ -38,17 +58,33 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<CloudTask>> AddTask(CloudTask newTask)
+public async Task<ActionResult<CloudTask>> AddTask(CloudTask newTask)
+{
+    if (string.IsNullOrWhiteSpace(newTask.Name))
+    {
+        return BadRequest("Pole Name jest wymagane.");
+    }
+
+    try
     {
         _context.Tasks.Add(newTask);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetTask), new { id = newTask.Id }, newTask);
     }
-
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Błąd zapisu do bazy: {ex.Message}");
+    }
+}
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTask(int id, CloudTask updatedTask)
     {
+        if (string.IsNullOrWhiteSpace(updatedTask.Name))
+        {
+            return BadRequest("Pole Name jest wymagane.");
+        }
+
         var task = await _context.Tasks.FindAsync(id);
 
         if (task == null)

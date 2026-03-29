@@ -85,6 +85,23 @@ W ramach Artefaktu 5 wykonano następujące zadania:
 - po dodaniu zadania lista danych jest automatycznie odświeżana.
 
 Artefakt 5 przygotowuje projekt do wdrożenia w środowisku chmurowym Azure.
+---
+☁️ Artefakt 6 – Wdrożenie aplikacji w chmurze Azure
+
+W ramach Artefaktu 6 wykonano następujące zadania:
+
+utworzono bazę danych w Azure SQL Database oraz skonfigurowano dostęp poprzez Firewall,
+dodano reguły sieciowe umożliwiające połączenie z poziomu aplikacji oraz środowiska Azure,
+skonfigurowano połączenie z bazą danych w pliku appsettings.Development.json,
+wykonano migrację bazy danych przy użyciu Entity Framework Core (dotnet ef database update),
+wdrożono backend (.NET Web API) do Azure App Service,
+backend został udostępniony publicznie poprzez protokół HTTPS,
+wdrożono frontend (React) do środowiska Azure,
+skonfigurowano integrację frontend–backend przy użyciu zmiennej środowiskowej VITE_API_URL,
+aplikacja frontendowa poprawnie komunikuje się z backendem i pobiera dane z bazy Azure SQL,
+zaktualizowano repozytorium GitHub o finalną wersję projektu wraz z dokumentacją.
+
+Artefakt 6 stanowi finalny etap projektu i potwierdza poprawne wdrożenie aplikacji w środowisku chmurowym Azure oraz pełną integrację wszystkich komponentów systemu.
 
 ## ▶ Uruchomienie projektu
 

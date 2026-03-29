@@ -86,7 +86,7 @@ W ramach Artefaktu 5 wykonano następujące zadania:
 
 Artefakt 5 przygotowuje projekt do wdrożenia w środowisku chmurowym Azure.
 ---
-☁️ Artefakt 6 – Wdrożenie aplikacji w chmurze Azure
+## Artefakt 6 – Wdrożenie aplikacji w chmurze Azure
 
 W ramach Artefaktu 6 wykonano następujące zadania:
 

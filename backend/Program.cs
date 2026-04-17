@@ -1,3 +1,5 @@
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
 using CloudBackend.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddAzureKeyVault(
+    new Uri("https://cloud-manager-vault-123.vault.azure.net/"),
+    new DefaultAzureCredential());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -20,6 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
             maxRetryDelay: TimeSpan.FromSeconds(30),
             errorNumbersToAdd: null
         )));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",

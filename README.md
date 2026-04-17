@@ -106,3 +106,11 @@ Artefakt 6 stanowi finalny etap projektu i potwierdza poprawne wdrożenie aplika
 ## ▶ Uruchomienie projektu
 
 ### Budowanie i uruchomienie kontenerów
+
+## Artefakt 7 – Zabezpieczona aplikacja
+
+W ramach Artefaktu 7 zabezpieczono aplikację poprzez integrację z usługą Azure Key Vault.  
+Connection string do bazy danych został usunięty z plików konfiguracyjnych aplikacji i zapisany jako sekret w Key Vault.  
+Backend został skonfigurowany do pobierania sekretu z Azure Key Vault przy użyciu biblioteki `Azure.Identity` oraz `DefaultAzureCredential`.  
+W usłudze Azure App Service włączono tożsamość zarządzaną (Managed Identity) i nadano jej uprawnienia do odczytu wpisów tajnych z Key Vault.  
+Po wprowadzonych zmianach aplikacja działa poprawnie w środowisku Azure i łączy się z bazą danych Azure SQL.

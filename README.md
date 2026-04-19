@@ -152,3 +152,4 @@ Artefakt 8 potwierdza poprawne działanie:
 - automatyzacji CI/CD,
 - integracji frontend–backend,
 - oraz rozszerzania funkcjonalności aplikacji.
+- 

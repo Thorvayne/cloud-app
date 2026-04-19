@@ -58,25 +58,26 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-public async Task<ActionResult<CloudTask>> AddTask(CloudTask newTask)
-{
-    if (string.IsNullOrWhiteSpace(newTask.Name))
+    public async Task<ActionResult<CloudTask>> AddTask(CloudTask newTask)
     {
-        return BadRequest("Pole Name jest wymagane.");
+        if (string.IsNullOrWhiteSpace(newTask.Name))
+        {
+            return BadRequest("Pole Name jest wymagane.");
+        }
+
+        try
+        {
+            _context.Tasks.Add(newTask);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetTask), new { id = newTask.Id }, newTask);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Błąd zapisu do bazy: {ex.Message}");
+        }
     }
 
-    try
-    {
-        _context.Tasks.Add(newTask);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetTask), new { id = newTask.Id }, newTask);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Błąd zapisu do bazy: {ex.Message}");
-    }
-}
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTask(int id, CloudTask updatedTask)
     {

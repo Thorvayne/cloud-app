@@ -7,7 +7,7 @@ type Task = {
   isCompleted: boolean;
 };
 
-const API_URL = "https://cloud-app-thorvayne-2026-api-fmbrfbc5g7beejg7.germanywestcentral-01.azurewebsites.net/api"
+const API_URL = "https://cloud-app-thorvayne-2026-api-fmbrfbc5g7beejg7.germanywestcentral-01.azurewebsites.net/api";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -53,12 +53,25 @@ export default function Dashboard() {
     }
   };
 
+  const deleteTask = async (id: number) => {
+    try {
+      await axios.delete(`${API_URL}/Tasks/${id}`);
+      setError("");
+      await fetchTasks();
+    } catch (err) {
+      console.error(err);
+      setError("Nie udało się usunąć zadania");
+    }
+  };
+
   if (loading) return <p>Ładowanie...</p>;
 
   return (
     <div style={{ padding: "20px" }}>
       <h1 style={{ color: "red" }}>Cloud App Dashboard 🚀</h1>
-      <p style={{ color: "green", fontWeight: "bold" }}>CI/CD działa poprawnie ✅</p>
+      <p style={{ color: "green", fontWeight: "bold" }}>
+        CI/CD działa poprawnie ✅
+      </p>
 
       <div style={{ marginBottom: "20px" }}>
         <input
@@ -79,9 +92,23 @@ export default function Dashboard() {
         <p>Brak zadań</p>
       ) : (
         <ul>
-          {tasks?.map((task) => (
-            <li key={task.id}>
+          {tasks.map((task) => (
+            <li key={task.id} style={{ marginBottom: "10px" }}>
               {task.name} {task.isCompleted ? "✅" : "❌"}
+
+              <button
+                onClick={() => deleteTask(task.id)}
+                style={{
+                  marginLeft: "10px",
+                  backgroundColor: "red",
+                  color: "white",
+                  border: "none",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                }}
+              >
+                Usuń
+              </button>
             </li>
           ))}
         </ul>

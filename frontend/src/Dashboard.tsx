@@ -57,7 +57,8 @@ export default function Dashboard() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Cloud App Dashboard</h1>
+      <h1 style={{ color: "red" }}>Cloud App Dashboard 🚀</h1>
+      <p style={{ color: "green", fontWeight: "bold" }}>CI/CD działa poprawnie ✅</p>
 
       <div style={{ marginBottom: "20px" }}>
         <input

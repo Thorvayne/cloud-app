@@ -114,3 +114,41 @@ Connection string do bazy danych został usunięty z plików konfiguracyjnych ap
 Backend został skonfigurowany do pobierania sekretu z Azure Key Vault przy użyciu biblioteki `Azure.Identity` oraz `DefaultAzureCredential`.  
 W usłudze Azure App Service włączono tożsamość zarządzaną (Managed Identity) i nadano jej uprawnienia do odczytu wpisów tajnych z Key Vault.  
 Po wprowadzonych zmianach aplikacja działa poprawnie w środowisku Azure i łączy się z bazą danych Azure SQL.
+
+## Artefakt 8 – Testy jednostkowe i CI/CD
+
+W ramach artefaktu 8 zaimplementowano mechanizmy testowania oraz automatyzacji wdrożeń aplikacji.
+
+### 8.1 Test jednostkowy (xUnit)
+Dodano projekt testowy `CloudTasks.Tests` z wykorzystaniem frameworka xUnit.  
+Zaimplementowano test `NewTask_ShouldNotBeCompleted`, który weryfikuje poprawność logiki biznesowej – nowo utworzone zadanie nie jest oznaczone jako ukończone (`IsCompleted = false`).
+
+### 8.2 Automatyzacja CI/CD
+Skonfigurowano integrację GitHub z Azure App Service przy użyciu GitHub Actions.  
+Każdy push do repozytorium automatycznie uruchamia pipeline, który:
+- buduje aplikację backendową (.NET),
+- publikuje artefakty,
+- wdraża aplikację na Azure.
+
+### 8.3 Test pchnięcia (Push Test)
+Wprowadzono zmianę w frontendzie (modyfikacja wyglądu dashboardu), a następnie wykonano `git push`.  
+Zmiana została automatycznie wdrożona, co potwierdza poprawne działanie pipeline CI/CD.
+
+### 8.4 Nowa funkcjonalność – usuwanie zadań
+Zaimplementowano operację DELETE:
+- Backend: dodano endpoint `DELETE /api/Tasks/{id}` w `TasksController`
+- Frontend: dodano przycisk „Usuń” przy każdym zadaniu
+
+Funkcjonalność umożliwia usuwanie zadań bezpośrednio z interfejsu użytkownika.
+
+### 8.5 Aktualizacja repozytorium
+Wszystkie zmiany zostały zapisane i opublikowane w repozytorium GitHub.  
+Dokumentacja projektu została zaktualizowana.
+
+---
+
+Artefakt 8 potwierdza poprawne działanie:
+- testów jednostkowych,
+- automatyzacji CI/CD,
+- integracji frontend–backend,
+- oraz rozszerzania funkcjonalności aplikacji.
